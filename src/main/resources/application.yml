@@ -1,0 +1,10 @@
+spring:
+    servlet:
+        multipart:
+            enabled: true
+            file-size-threshold: 200MB
+            max-file-size: 200MB
+            max-request-size: 215MB
+
+file:
+    upload-dir: ./geo-point-parser/uploads
