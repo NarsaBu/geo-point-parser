@@ -8,7 +8,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,12 @@ public class FileStorageService {
     }
   }
 
+  public List<String> listAllUploads() {
+    return FileUtils.listFiles(new File(properties.getUploadDir()), null, false).stream()
+      .map(File::getName)
+      .collect(Collectors.toList());
+  }
+
   public Resource storeFile(String filename, List<Placemark> placemarks) {
     try {
       File file = new File(filename + ".kml");
@@ -64,7 +72,7 @@ public class FileStorageService {
     }
   }
 
-  private Resource loadFileAsResource(String fileName) {
+  public Resource loadFileAsResource(String fileName) {
     try {
       Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
       Resource resource = new UrlResource(filePath.toUri());
