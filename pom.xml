@@ -15,7 +15,7 @@
 	<description>geo-point-parser</description>
 
 	<properties>
-		<java.version>19</java.version>
+		<java.version>15</java.version>
 		<poi.version>5.2.3</poi.version>
 	</properties>
 
