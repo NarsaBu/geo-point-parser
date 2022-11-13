@@ -52,13 +52,15 @@ public class FileStorageService {
 
   public Resource storeFile(String filename, List<Placemark> placemarks) {
     try {
-      File file = new File(filename + ".kml");
-      kmlGenerator.createFile(filename + ".kml", placemarks);
+      val filenameWithExtension = filename + ".kml";
+      File file = new File(filenameWithExtension);
+      kmlGenerator.createFile(filenameWithExtension, placemarks);
 
       Path targetLocation = this.fileStorageLocation.resolve(filename + ".kml");
       Files.copy(file.toPath(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+      Files.delete(Paths.get("./" + filenameWithExtension));
 
-      return loadFileAsResource(filename + ".kml");
+      return loadFileAsResource(filenameWithExtension);
     } catch (IOException ex) {
       throw new FileStorageException("Could not store file " + filename + ". Please try again!", ex);
     }

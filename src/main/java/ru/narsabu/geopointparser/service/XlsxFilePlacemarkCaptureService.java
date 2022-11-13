@@ -13,9 +13,9 @@ public class XlsxFilePlacemarkCaptureService {
       int totalRows = sheet.getLastRowNum();
 
       List<Placemark> placemarks = new ArrayList<>();
+      int counter = 1;
 
       for (int i = 0; i < totalRows; i++) {
-        int counter = 1;
         if (sheet.getRow(i) != null) {
           if (sheet.getRow(i).getCell(0) != null) {
             String name = filename + " " + counter++;
